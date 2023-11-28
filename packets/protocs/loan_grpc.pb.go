@@ -18,122 +18,122 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// UserClient is the client API for User service.
+// LoanClient is the client API for Loan service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type UserClient interface {
+type LoanClient interface {
 	CreateLoan(ctx context.Context, in *InputCreateLoan, opts ...grpc.CallOption) (*OutputCreateLoan, error)
-	GetLoans(ctx context.Context, in *EmptyReq, opts ...grpc.CallOption) (*OutputGetLoan, error)
+	GetLoans(ctx context.Context, in *EmptyReqLoan, opts ...grpc.CallOption) (*OutputGetLoan, error)
 }
 
-type userClient struct {
+type loanClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewUserClient(cc grpc.ClientConnInterface) UserClient {
-	return &userClient{cc}
+func NewLoanClient(cc grpc.ClientConnInterface) LoanClient {
+	return &loanClient{cc}
 }
 
-func (c *userClient) CreateLoan(ctx context.Context, in *InputCreateLoan, opts ...grpc.CallOption) (*OutputCreateLoan, error) {
+func (c *loanClient) CreateLoan(ctx context.Context, in *InputCreateLoan, opts ...grpc.CallOption) (*OutputCreateLoan, error) {
 	out := new(OutputCreateLoan)
-	err := c.cc.Invoke(ctx, "/packets.User/CreateLoan", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/packets.Loan/CreateLoan", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *userClient) GetLoans(ctx context.Context, in *EmptyReq, opts ...grpc.CallOption) (*OutputGetLoan, error) {
+func (c *loanClient) GetLoans(ctx context.Context, in *EmptyReqLoan, opts ...grpc.CallOption) (*OutputGetLoan, error) {
 	out := new(OutputGetLoan)
-	err := c.cc.Invoke(ctx, "/packets.User/GetLoans", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/packets.Loan/GetLoans", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// UserServer is the server API for User service.
-// All implementations must embed UnimplementedUserServer
+// LoanServer is the server API for Loan service.
+// All implementations must embed UnimplementedLoanServer
 // for forward compatibility
-type UserServer interface {
+type LoanServer interface {
 	CreateLoan(context.Context, *InputCreateLoan) (*OutputCreateLoan, error)
-	GetLoans(context.Context, *EmptyReq) (*OutputGetLoan, error)
-	mustEmbedUnimplementedUserServer()
+	GetLoans(context.Context, *EmptyReqLoan) (*OutputGetLoan, error)
+	mustEmbedUnimplementedLoanServer()
 }
 
-// UnimplementedUserServer must be embedded to have forward compatible implementations.
-type UnimplementedUserServer struct {
+// UnimplementedLoanServer must be embedded to have forward compatible implementations.
+type UnimplementedLoanServer struct {
 }
 
-func (UnimplementedUserServer) CreateLoan(context.Context, *InputCreateLoan) (*OutputCreateLoan, error) {
+func (UnimplementedLoanServer) CreateLoan(context.Context, *InputCreateLoan) (*OutputCreateLoan, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateLoan not implemented")
 }
-func (UnimplementedUserServer) GetLoans(context.Context, *EmptyReq) (*OutputGetLoan, error) {
+func (UnimplementedLoanServer) GetLoans(context.Context, *EmptyReqLoan) (*OutputGetLoan, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetLoans not implemented")
 }
-func (UnimplementedUserServer) mustEmbedUnimplementedUserServer() {}
+func (UnimplementedLoanServer) mustEmbedUnimplementedLoanServer() {}
 
-// UnsafeUserServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to UserServer will
+// UnsafeLoanServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to LoanServer will
 // result in compilation errors.
-type UnsafeUserServer interface {
-	mustEmbedUnimplementedUserServer()
+type UnsafeLoanServer interface {
+	mustEmbedUnimplementedLoanServer()
 }
 
-func RegisterUserServer(s grpc.ServiceRegistrar, srv UserServer) {
-	s.RegisterService(&User_ServiceDesc, srv)
+func RegisterLoanServer(s grpc.ServiceRegistrar, srv LoanServer) {
+	s.RegisterService(&Loan_ServiceDesc, srv)
 }
 
-func _User_CreateLoan_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Loan_CreateLoan_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(InputCreateLoan)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserServer).CreateLoan(ctx, in)
+		return srv.(LoanServer).CreateLoan(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/packets.User/CreateLoan",
+		FullMethod: "/packets.Loan/CreateLoan",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServer).CreateLoan(ctx, req.(*InputCreateLoan))
+		return srv.(LoanServer).CreateLoan(ctx, req.(*InputCreateLoan))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _User_GetLoans_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(EmptyReq)
+func _Loan_GetLoans_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EmptyReqLoan)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserServer).GetLoans(ctx, in)
+		return srv.(LoanServer).GetLoans(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/packets.User/GetLoans",
+		FullMethod: "/packets.Loan/GetLoans",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServer).GetLoans(ctx, req.(*EmptyReq))
+		return srv.(LoanServer).GetLoans(ctx, req.(*EmptyReqLoan))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// User_ServiceDesc is the grpc.ServiceDesc for User service.
+// Loan_ServiceDesc is the grpc.ServiceDesc for Loan service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var User_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "packets.User",
-	HandlerType: (*UserServer)(nil),
+var Loan_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "packets.Loan",
+	HandlerType: (*LoanServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "CreateLoan",
-			Handler:    _User_CreateLoan_Handler,
+			Handler:    _Loan_CreateLoan_Handler,
 		},
 		{
 			MethodName: "GetLoans",
-			Handler:    _User_GetLoans_Handler,
+			Handler:    _Loan_GetLoans_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

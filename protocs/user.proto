@@ -6,7 +6,7 @@ package packets;
 
 service User {
 	rpc CreateUser(InputCreateUser) returns (OutputCreateUser){}
-	rpc GetUsers(EmptyReq) returns (OutputGetUser){}
+	rpc GetUsers(EmptyReqUser) returns (OutputGetUser){}
 }
 
 message InputCreateUser {
@@ -21,7 +21,7 @@ message OutputCreateUser {
 	string message = 2;
 }
 
-message EmptyReq {}
+message EmptyReqUser {}
 
 message OutputGetUser {
   repeated InputCreateUser users = 1;

@@ -4,9 +4,9 @@ option go_package = "./packets";
 
 package packets;
 
-service User {
+service Loan {
 	rpc CreateLoan(InputCreateLoan) returns (OutputCreateLoan){}
-	rpc GetLoans(EmptyReq) returns (OutputGetLoan){}
+	rpc GetLoans(EmptyReqLoan) returns (OutputGetLoan){}
 }
 
 message InputCreateLoan {
@@ -21,7 +21,7 @@ message OutputCreateLoan {
 	string message = 2;
 }
 
-message EmptyReq {}
+message EmptyReqLoan {}
 
 message OutputGetLoan {
   repeated InputCreateLoan users = 1;
