@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option go_package = "./packets";
+
+package packets;
+
+service User {
+	rpc CreateLoan(InputCreateLoan) returns (OutputCreateLoan){}
+	rpc GetLoans(EmptyReq) returns (OutputGetLoan){}
+}
+
+message InputCreateLoan {
+  string loan_id = 1;
+  int32 amount = 2;
+  string tenure = 3;
+  string created_at = 4;
+}
+
+message OutputCreateLoan {
+	int32 status_code = 1;
+	string message = 2;
+}
+
+message EmptyReq {}
+
+message OutputGetLoan {
+  repeated InputCreateLoan users = 1;
+}
