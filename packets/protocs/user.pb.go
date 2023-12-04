@@ -4,6 +4,8 @@
 // 	protoc        v3.12.4
 // source: protocs/user.proto
 
+http.statusCode
+
 package packets
 
 import (

@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option go_package = "./packets";
+
+package packets;
+
+service Transaction {
+	rpc CreateTransaction(InputCreateTransaction) returns (OutputCreateTransaction){}
+}
+
+message InputCreateTransaction {
+  int32 Id=1;
+}
+
+message OutputCreateTransaction {
+	int32 status_code = 1;
+	string message = 2;
+}
