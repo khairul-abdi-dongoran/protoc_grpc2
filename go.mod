@@ -1,4 +1,4 @@
-module github.com/khairul-abdi-dongoran/protoc_grpc
+module github.com/khairul-abdi-dongoran/protoc_grpc2
 
 go 1.20
 
